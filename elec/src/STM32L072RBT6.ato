@@ -1,0 +1,71 @@
+component STM32L072RBT6:
+    # component STM32L072RBT6
+    footprint = "LQFP-64_L10.0-W10.0-P0.50-LS12.0-BL"
+    lcsc_id = "C915968"
+    mpn = "C915968"
+    # pins
+    signal VDD ~ pin 1
+    signal PC13 ~ pin 2
+    signal PC14_minus_OSC32_IN ~ pin 3
+    signal PC15_minus_OSC32_OUT ~ pin 4
+    signal PH0_minus_OSC_IN ~ pin 5
+    signal PH1_minus_OSC_OUT ~ pin 6
+    signal NRST ~ pin 7
+    signal PC0 ~ pin 8
+    signal PC1 ~ pin 9
+    signal PC2 ~ pin 10
+    signal PC3 ~ pin 11
+    signal VSSA ~ pin 12
+    signal VDDA ~ pin 13
+    signal PA0 ~ pin 14
+    signal PA1 ~ pin 15
+    signal PA2 ~ pin 16
+    signal PA3 ~ pin 17
+    signal VSS ~ pin 18
+    VDD ~ pin 19
+    signal PA4 ~ pin 20
+    signal PA5 ~ pin 21
+    signal PA6 ~ pin 22
+    signal PA7 ~ pin 23
+    signal PC4 ~ pin 24
+    signal PC5 ~ pin 25
+    signal PB0 ~ pin 26
+    signal PB1 ~ pin 27
+    signal PB2 ~ pin 28
+    signal PB10 ~ pin 29
+    signal PB11 ~ pin 30
+    VSS ~ pin 31
+    VDD ~ pin 32
+    signal PB12 ~ pin 33
+    signal PB13 ~ pin 34
+    signal PB14 ~ pin 35
+    signal PB15 ~ pin 36
+    signal PC6 ~ pin 37
+    signal PC7 ~ pin 38
+    signal PC8 ~ pin 39
+    signal PC9 ~ pin 40
+    signal PA8 ~ pin 41
+    signal PA9 ~ pin 42
+    signal PA10 ~ pin 43
+    signal PA11 ~ pin 44
+    signal PA12 ~ pin 45
+    signal PA13 ~ pin 46
+    VSS ~ pin 47
+    signal VDD_USB ~ pin 48
+    signal PA14 ~ pin 49
+    signal PA15 ~ pin 50
+    signal PC10 ~ pin 51
+    signal PC11 ~ pin 52
+    signal PC12 ~ pin 53
+    signal PD2 ~ pin 54
+    signal PB3 ~ pin 55
+    signal PB4 ~ pin 56
+    signal PB5 ~ pin 57
+    signal PB6 ~ pin 58
+    signal PB7 ~ pin 59
+    signal BOOT0 ~ pin 60
+    signal PB8 ~ pin 61
+    signal PB9 ~ pin 62
+    VSS ~ pin 63
+    VDD ~ pin 64
+
