@@ -1,0 +1,6 @@
+ato-version: ^0.2.0
+builds:
+  default:
+    entry: elec/src/stm32l072rb.ato:Stm32l072rb
+dependencies:
+- generics
