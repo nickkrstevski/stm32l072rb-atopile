@@ -1,7 +1,7 @@
 ato-version: ^0.2.0
 builds:
   default:
-    entry: elec/src/stm32l072rb.ato:Stm32l072rb
+    entry: elec/src/STM32L072RB-kit.ato:STM32L072RBKit
 dependencies:
 - name: generics
   version_spec: '@93de318f38c5acb079fb5cfc9d5a06dc5f02b157'
