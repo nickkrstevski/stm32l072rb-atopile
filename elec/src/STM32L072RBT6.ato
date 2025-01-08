@@ -1,3 +1,7 @@
+from "generics/interfaces.ato" import SWD
+from "generics/interfaces.ato" import USB2
+from "generics/interfaces.ato" import Power
+
 component STM32L072RBT6:
     # component STM32L072RBT6
     footprint = "LQFP-64_L10.0-W10.0-P0.50-LS12.0-BL"
@@ -68,4 +72,18 @@ component STM32L072RBT6:
     signal PB9 ~ pin 62
     VSS ~ pin 63
     VDD ~ pin 64
+    signal gnd ~ VSS
+
+    usb_power = new Power
+    usb_power.vcc ~ VDD_USB
+    usb_power.gnd ~ gnd
+
+    usb = new USB2
+    usb.dm ~ PA11
+    usb.dp ~ PA12
+
+    swd = new SWD
+    swd.swdio ~ PA13
+    swd.swclk ~ PA14
+
 
