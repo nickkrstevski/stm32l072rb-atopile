@@ -18,33 +18,33 @@ module STM32L072RBKit:
     micro_power = new Power
 
     # Reset Button
-    reset_resistor = new Resistor
-    reset_resistor.value = 10kohm +/- 10%
-    reset_resistor.package = "0402"
+    # reset_resistor = new Resistor
+    # reset_resistor.value = 10kohm +/- 10%
+    # reset_resistor.package = "0402"
 
-    reset_button = new ButtonSKRPACE010
+    # reset_button = new ButtonSKRPACE010
 
-    # Boot mode selection
-    boot_resistor = new Resistor
-    reset_resistor.value = 10kohm +/- 10%
-    reset_resistor.package = "0402"
-    micro.BOOT0 ~ micro_power.vcc
+    # # Boot mode selection
+    # boot_resistor = new Resistor
+    # reset_resistor.value = 10kohm +/- 10%
+    # reset_resistor.package = "0402"
+    # micro.BOOT0 ~ micro_power.vcc
 
-    # Decoupling Caps
+    # # Decoupling Caps
     dc_cap1 = new Capacitor
     dc_cap1.value = 100nF +/- 20%
     dc_cap1.voltage = "10V"
-    dc_cap1.package = "0402"
-    dc_cap2 = new Capacitor
-    dc_cap2.value = 100nF +/- 20%
-    dc_cap2.voltage = "10V"
-    dc_cap2.package = "0402"
-    dc_cap3 = new Capacitor
-    dc_cap3.value = 100nF +/- 20%
-    dc_cap3.voltage = "10V"
-    dc_cap3.package = "0402"
-    dc_cap4 = new Capacitor
-    dc_cap4.value = 100nF +/- 20%
-    dc_cap4.voltage = "10V"
-    dc_cap4.package = "0402"
+    # dc_cap1.package = "0402"
+    # dc_cap2 = new Capacitor
+    # dc_cap2.value = 100nF +/- 20%
+    # dc_cap2.voltage = "10V"
+    # dc_cap2.package = "0402"
+    # dc_cap3 = new Capacitor
+    # dc_cap3.value = 100nF +/- 20%
+    # dc_cap3.voltage = "10V"
+    # dc_cap3.package = "0402"
+    # dc_cap4 = new Capacitor
+    # dc_cap4.value = 100nF +/- 20%
+    # dc_cap4.voltage = "10V"
+    # dc_cap4.package = "0402"
 
