@@ -7,8 +7,8 @@ from "generics/capacitors.ato" import Capacitor
 from "generics/buttons.ato" import ButtonSKRPACE010
 from "usb-connectors/usb-connectors.ato" import USBCConn
 from "X50328MSB2GI.ato" import X50328MSB2GI
-from "power-prioritizer/elec/src/power-prioritizer.ato" import PowerPrioritiser
-form "ams1117-33/elec/src/ams1117-33.ato" import AMS111733
+from "power-prioritiser/elec/src/power-prioritiser.ato" import PowerPrioritiser
+from "ams1117-33/elec/src/ams1117-33.ato" import AMS111733
 
 module STM32L072RBKit:
     micro = new STM32L072RBT6
@@ -35,8 +35,8 @@ module STM32L072RBKit:
 
     # Prioritize USB power. Using pass FET for low RDSon using battery
     prioritizer = new PowerPrioritiser
-    prioritizer.high_priority ~ usb_power
-    prioritizer.low_priority ~ low_priority
+    prioritizer.high_priority ~ usb_power3v3
+    prioritizer.low_priority ~ battery_power
     prioritizer.out ~ micro_power
 
     # NRST
