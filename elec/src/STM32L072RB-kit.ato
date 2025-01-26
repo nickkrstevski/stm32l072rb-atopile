@@ -5,6 +5,7 @@ from "generics/interfaces.ato" import I2C
 from "generics/resistors.ato" import Resistor
 from "generics/capacitors.ato" import Capacitor
 from "generics/buttons.ato" import ButtonSKRPACE010
+from "usb-connectors/usb-connectors.ato" import USBCConn
 
 module STM32L072RBKit:
     micro = new STM32L072RBT6
@@ -17,34 +18,86 @@ module STM32L072RBKit:
     battery_power.voltage = 2.9V to 3.3V
     micro_power = new Power
 
-    # Reset Button
-    # reset_resistor = new Resistor
-    # reset_resistor.value = 10kohm +/- 10%
-    # reset_resistor.package = "0402"
+    res1 = new Resistor
+    res1.value = 100 ohm +/- 1%
 
-    # reset_button = new ButtonSKRPACE010
+    # Reset Button
+    reset_resistor = new Resistor
+    reset_resistor.value = 10kohm +/- 10%
+    reset_resistor.package = "0402"
+    reset_resistor.p1 ~ micro_power.vcc
+    reset_resistor.p2 ~ micro.NRST
+
+    reset_button = new ButtonSKRPACE010
+    reset_button.in ~ micro.NRST
+    reset_button.out ~ gnd
+
+    reset_cap = new Capacitor
+    reset_cap.value = 10nF +/- 20%
+    reset_cap.voltage = "10V"
+    reset_cap.package = "0402"
+    reset_cap.p1 ~ micro.NRST
+    reset_cap.p2 ~ gnd
 
     # # Boot mode selection
-    # boot_resistor = new Resistor
-    # reset_resistor.value = 10kohm +/- 10%
-    # reset_resistor.package = "0402"
-    # micro.BOOT0 ~ micro_power.vcc
+    boot_resistor = new Resistor
+    boot_resistor.value = 10kohm +/- 10%
+    boot_resistor.package = "0402"
+    boot_resistor.p1 ~ micro_power.vcc
+    boot_resistor.p2 ~ micro.BOOT0
 
-    # # Decoupling Caps
+    # Decoupling Caps
     dc_cap1 = new Capacitor
     dc_cap1.value = 100nF +/- 20%
     dc_cap1.voltage = "10V"
-    # dc_cap1.package = "0402"
-    # dc_cap2 = new Capacitor
-    # dc_cap2.value = 100nF +/- 20%
-    # dc_cap2.voltage = "10V"
-    # dc_cap2.package = "0402"
-    # dc_cap3 = new Capacitor
-    # dc_cap3.value = 100nF +/- 20%
-    # dc_cap3.voltage = "10V"
-    # dc_cap3.package = "0402"
-    # dc_cap4 = new Capacitor
-    # dc_cap4.value = 100nF +/- 20%
-    # dc_cap4.voltage = "10V"
-    # dc_cap4.package = "0402"
+    dc_cap1.package = "0402"
+    dc_cap2 = new Capacitor
+    dc_cap2.value = 100nF +/- 20%
+    dc_cap2.voltage = "10V"
+    dc_cap2.package = "0402"
+    dc_cap3 = new Capacitor
+    dc_cap3.value = 100nF +/- 20%
+    dc_cap3.voltage = "10V"
+    dc_cap3.package = "0402"
+    dc_cap4 = new Capacitor
+    dc_cap4.value = 100nF +/- 20%
+    dc_cap4.voltage = "10V"
+    dc_cap4.package = "0402"
 
+    usbC = new USBCConn
+
+    i2c1_scl_pu = new Resistor
+    i2c1_scl_pu.value = 4.7kohm +/- 10%
+    i2c1_scl_pu.package = "0402"
+    i2c1_scl_pu.p1 ~ micro_power.vcc
+    i2c1_scl_pu.p2 ~ micro.i2c1.scl
+    
+    i2c1_sda_pu = new Resistor
+    i2c1_sda_pu.value = 4.7kohm +/- 10%
+    i2c1_sda_pu.package = "0402"
+    i2c1_sda_pu.p1 ~ micro_power.vcc
+    i2c1_sda_pu.p2 ~ micro.i2c1.sda
+
+    i2c2_scl_pu = new Resistor
+    i2c2_scl_pu.value = 4.7kohm +/- 10%
+    i2c2_scl_pu.package = "0402"
+    i2c2_scl_pu.p1 ~ micro_power.vcc
+    i2c2_scl_pu.p2 ~ micro.i2c2.scl
+    
+    i2c2_sda_pu = new Resistor
+    i2c2_sda_pu.value = 4.7kohm +/- 10%
+    i2c2_sda_pu.package = "0402"
+    i2c2_sda_pu.p1 ~ micro_power.vcc
+    i2c2_sda_pu.p2 ~ micro.i2c2.sda
+
+    i2c3_scl_pu = new Resistor
+    i2c3_scl_pu.value = 4.7kohm +/- 10%
+    i2c3_scl_pu.package = "0402"
+    i2c3_scl_pu.p1 ~ micro_power.vcc
+    i2c3_scl_pu.p2 ~ micro.i2c3.scl
+    
+    i2c3_sda_pu = new Resistor
+    i2c3_sda_pu.value = 4.7kohm +/- 10%
+    i2c3_sda_pu.package = "0402"
+    i2c3_sda_pu.p1 ~ micro_power.vcc
+    i2c3_sda_pu.p2 ~ micro.i2c3.sda
