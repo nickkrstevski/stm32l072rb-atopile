@@ -37,7 +37,7 @@ module ButtonSKRPACE010 from NoButton:
     in ~ btn.in
     out ~ btn.out
 
-component _ButtonSKTDLDE010:
+component _ButtonSKTDLDE010 from NoButton:
     in ~ pin 1
     out ~ pin 2
     signal anchor ~ pin 3

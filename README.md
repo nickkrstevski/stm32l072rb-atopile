@@ -45,3 +45,4 @@ https://www.st.com/resource/en/application_note/an4467-getting-started-with-stm3
 * Device has secondary clock sources 37kHz low speed internal RC and 32.768kHz low speed external crystal
 * Each clock source can be enabled or disabled independently when not in use
 * USB Bootloader is in system memory, BOOT0 = 1 and nBOOT1 = 1
+* Connect the SWD port

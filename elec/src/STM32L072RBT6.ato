@@ -2,6 +2,7 @@ from "generics/interfaces.ato" import SWD
 from "generics/interfaces.ato" import USB2
 from "generics/interfaces.ato" import SPI
 from "generics/interfaces.ato" import I2C
+from "generics/interfaces.ato" import UART
 from "generics/interfaces.ato" import Power
 
 component STM32L072RBT6:
@@ -77,6 +78,7 @@ component STM32L072RBT6:
     signal gnd ~ VSS
 
     micro3v3 = new Power
+    micro3v3.vcc ~ VDD
     micro3v3.voltage = 1.8V to 3.6V
     micro3v3.gnd ~ gnd
 
@@ -121,3 +123,7 @@ component STM32L072RBT6:
     i2c3.scl ~ PC0
     i2c3.sda ~ PC1
     i2c3.gnd ~ gnd
+
+    usart1 = new UART #ignore the Sychronous for a sec
+    usart1.rx ~ PA9
+    usart1.tx ~ PA10

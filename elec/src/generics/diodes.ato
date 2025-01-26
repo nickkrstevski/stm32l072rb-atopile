@@ -25,14 +25,14 @@ module PowerDiodeOr:
     """
     A diode or gate that combines two power rails, only dropping the 
     """
-    diode = new ShottkyDiode
+    diode = new SchottkyDiode
     power_in1 = new Power
     power_in2 = new Power
     power_out = new Power
 
     power_in2 ~ power_out
-    power_in.vcc ~ diode.anode; diode.cathode ~ power_out.vcc
-    power_in.gnd ~ power_out.gnd
+    power_in1.vcc ~ diode.anode; diode.cathode ~ power_out.vcc
+    power_in1.gnd ~ power_out.gnd
 
 import Power_AC from "interfaces.ato"
 module FULLBRIDGERECTIFIER:

@@ -6,24 +6,42 @@ from "generics/resistors.ato" import Resistor
 from "generics/capacitors.ato" import Capacitor
 from "generics/buttons.ato" import ButtonSKRPACE010
 from "usb-connectors/usb-connectors.ato" import USBCConn
+from "X50328MSB2GI.ato" import X50328MSB2GI
+from "power-prioritizer/elec/src/power-prioritizer.ato" import PowerPrioritiser
+form "ams1117-33/elec/src/ams1117-33.ato" import AMS111733
 
 module STM32L072RBKit:
     micro = new STM32L072RBT6
     signal gnd
     gnd ~ micro.gnd
 
-    usb_power = new Power
-    usb_power.voltage = 5V
+    # Onboard LDO usb to 3V3
+    usb_power5 = new Power
+    usb_power5.voltage = 5V
+    usb_power3v3 = new Power
+    usb_power3v3.voltage = 3.0 to 3.6V
+    usb_LDO = new AMS111733
+    usb_LDO.power_in ~ usb_power5
+    usb_LDO.power_out ~ usb_power3v3
+
+    # CR2032 Coin cell
     battery_power = new Power
-    battery_power.voltage = 2.9V to 3.3V
+    battery_power.voltage = 2V to 3.4V
+
+    # Endpoint must be 3V3, consumed by STM32
     micro_power = new Power
+    micro_power ~ micro.micro3v3
+    micro_power.voltage = 1.8V to 3.6V
 
-    res1 = new Resistor
-    res1.value = 100 ohm +/- 1%
+    # Prioritize USB power. Using pass FET for low RDSon using battery
+    prioritizer = new PowerPrioritiser
+    prioritizer.high_priority ~ usb_power
+    prioritizer.low_priority ~ low_priority
+    prioritizer.out ~ micro_power
 
-    # Reset Button
+    # NRST
     reset_resistor = new Resistor
-    reset_resistor.value = 10kohm +/- 10%
+    reset_resistor.value = 100kohm +/- 10%
     reset_resistor.package = "0402"
     reset_resistor.p1 ~ micro_power.vcc
     reset_resistor.p2 ~ micro.NRST
@@ -39,32 +57,59 @@ module STM32L072RBKit:
     reset_cap.p1 ~ micro.NRST
     reset_cap.p2 ~ gnd
 
-    # # Boot mode selection
-    boot_resistor = new Resistor
-    boot_resistor.value = 10kohm +/- 10%
-    boot_resistor.package = "0402"
-    boot_resistor.p1 ~ micro_power.vcc
-    boot_resistor.p2 ~ micro.BOOT0
+    # Boot mode selection
+    boot_resistor_pd = new Resistor
+    boot_resistor_pd.value = 10kohm +/- 10%
+    boot_resistor_pd.package = "0402"
+    boot_resistor_pd.p1 ~ micro.BOOT0
+    boot_resistor_pd.p2 ~ gnd
 
-    # Decoupling Caps
-    dc_cap1 = new Capacitor
-    dc_cap1.value = 100nF +/- 20%
-    dc_cap1.voltage = "10V"
-    dc_cap1.package = "0402"
-    dc_cap2 = new Capacitor
-    dc_cap2.value = 100nF +/- 20%
-    dc_cap2.voltage = "10V"
-    dc_cap2.package = "0402"
-    dc_cap3 = new Capacitor
-    dc_cap3.value = 100nF +/- 20%
-    dc_cap3.voltage = "10V"
-    dc_cap3.package = "0402"
-    dc_cap4 = new Capacitor
-    dc_cap4.value = 100nF +/- 20%
-    dc_cap4.voltage = "10V"
-    dc_cap4.package = "0402"
+    boot_button = new ButtonSKRPACE010
+    boot_button.in ~ micro.BOOT0
+    boot_button.out ~ micro_power.vcc
+
+    # Decoupling Caps (4xVDD pins, 1x VDDA)
+    vdd1_caps = new VddCaps
+    vdd1_caps.vdd ~ micro.VDD
+    vdd1_caps.gnd ~ gnd
+    vdd2_caps = new VddCaps
+    vdd2_caps.vdd ~ micro.VDD
+    vdd2_caps.gnd ~ gnd
+    vdd3_caps = new VddCaps
+    vdd3_caps.vdd ~ micro.VDD
+    vdd3_caps.gnd ~ gnd
+    vdd4_caps = new VddCaps
+    vdd4_caps.vdd ~ micro.VDD
+    vdd4_caps.gnd ~ gnd
+    vdda_caps = new VddCaps
+    vdda_caps.vdd ~ micro.VDDA
+    vdda_caps.gnd ~ gnd
+
+    HSE_crystal = new X50328MSB2GI
+    crystal_res = new Resistor
+    crystal_res.value = 0ohm
+    crystal_res.package = "0402"
+    crystal_res2 = new Resistor
+    crystal_res2.value = 0ohm
+    crystal_res2.package = "0402"
+    crystal_cap1 = new Capacitor
+    crystal_cap1.value = 20pF +/- 10%
+    crystal_cap1.package = "0402"
+    crystal_cap2 = new Capacitor
+    crystal_cap2.value = 20pF +/- 10%
+    crystal_cap2.package = "0402"
+    crystal_res.p1 ~ micro.PH0_minus_OSC_IN
+    crystal_res2.p1 ~ micro.PH1_minus_OSC_OUT
+    crystal_cap2.p1 ~ micro.PH1_minus_OSC_OUT
+    crystal_res.p2 ~ crystal_cap1.p1
+    crystal_res2.p2 ~ crystal_cap2.p1
+    HSE_crystal.OSC1 ~ crystal_cap1.p1
+    HSE_crystal.OSC2 ~ crystal_cap2.p1
+    crystal_cap1.p2 ~ gnd
+    crystal_cap2.p2 ~ gnd
 
     usbC = new USBCConn
+    usbC.power ~ micro.usb_power
 
     i2c1_scl_pu = new Resistor
     i2c1_scl_pu.value = 4.7kohm +/- 10%
@@ -101,3 +146,20 @@ module STM32L072RBKit:
     i2c3_sda_pu.package = "0402"
     i2c3_sda_pu.p1 ~ micro_power.vcc
     i2c3_sda_pu.p2 ~ micro.i2c3.sda
+
+module VddCaps:
+    signal vdd
+    signal gnd
+    big_cap = new Capacitor
+    big_cap.value = 2.2uF +/- 20%
+    big_cap.voltage = "10V"
+    big_cap.package = "0603"
+    big_cap.p1 ~ vdd
+    big_cap.p2 ~ gnd
+
+    lil_cap = new Capacitor
+    lil_cap.value = 100nF +/- 20%
+    lil_cap.voltage = "10V"
+    lil_cap.package = "0402"
+    lil_cap.p1 ~ vdd
+    lil_cap.p2 ~ gnd
