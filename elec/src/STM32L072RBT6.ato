@@ -1,4 +1,5 @@
 from "generics/interfaces.ato" import SWD
+from "generics/interfaces.ato" import JTAG
 from "generics/interfaces.ato" import USB2
 from "generics/interfaces.ato" import SPI
 from "generics/interfaces.ato" import I2C
@@ -90,10 +91,21 @@ component STM32L072RBT6:
     usb = new USB2
     usb.dm ~ PA11
     usb.dp ~ PA12
+    usb.gnd ~ gnd
 
     swd = new SWD
     swd.swdio ~ PA13
     swd.swclk ~ PA14
+    swd.gnd ~ gnd
+
+    jtag = new JTAG
+    jtag.vcc ~ micro3v3.vcc
+    jtag.tms ~ PA13
+    jtag.tck ~ PA14
+    jtag.tdi ~ PA15
+    jtag.tdo ~ PB3
+    jtag.reset ~ NRST
+    jtag.gnd ~ gnd
 
     spi1 = new SPI
     spi1.mosi ~ PA7
