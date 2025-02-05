@@ -5,6 +5,7 @@ Extreme low power, plenty of peripherals, USB bootloader ready to rip, hell yeah
 Got into DFU bootloader after following fixes.
 * TODO: VDD_USB connects straight to USB 5V rail instead of the LDO outputs
 * TODO: VDDA/VSSA straight up not connected
+* TODO: Add a blinky are you serious?
 
 ## Specs I Care About
 Flash:  128kB
