@@ -3,8 +3,8 @@ Extreme low power, plenty of peripherals, USB bootloader ready to rip, hell yeah
 
 ## 2025-02-04: V0 Hardware built and powered on->BUG REPORT: Not great, 6☆/10
 Got into DFU bootloader after following fixes.
-* TODO: VDD_USB connects straight to USB 5V rail instead of the LDO outputs
-* TODO: VDDA/VSSA straight up not connected
+* FIXED: VDD_USB connects straight to USB 5V rail instead of the LDO outputs
+* FIXED: VDDA/VSSA straight up not connected
 * TODO: Add a blinky are you serious?
 
 ## Specs I Care About

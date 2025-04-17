@@ -17,6 +17,8 @@ module STM32L072RBKit:
     micro = new STM32L072RBT6
     signal gnd
     gnd ~ micro.gnd
+    micro.usb_power ~ micro_power  # Powering the micro VDDUSB rail off the same 3V3 as micro VDD for now
+    micro.micro_power ~ micro.analog_power # Powering the analog rail off the same 3V3 as micro VDD for now
 
     # Onboard LDO usb to 3V3
     usb_power5 = new Power
@@ -116,7 +118,7 @@ module STM32L072RBKit:
     crystal_cap2.p2 ~ gnd
 
     usbC = new USBCConn
-    usbC.power ~ micro.usb_power
+    usbC.power ~ usb_power5
     usbC.usb2 ~ micro.usb
 
     i2c1_scl_pu = new Resistor

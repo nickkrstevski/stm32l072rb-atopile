@@ -88,6 +88,10 @@ component STM32L072RBT6:
     usb_power.voltage = 3.0V to 3.6V
     usb_power.gnd ~ gnd
 
+    analog_power = new Power
+    analog_power.vcc ~ VDDA
+    analog_power.gnd ~ VSSA
+
     usb = new USB2
     usb.dm ~ PA11
     usb.dp ~ PA12
